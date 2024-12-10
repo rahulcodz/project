@@ -29,6 +29,7 @@ export class UsersService {
     }
 
     const total = await this.userModel.countDocuments(filter).exec();
+    console.log(total);
 
     const users = await this.userModel
       .find(filter) // Apply filter for search
