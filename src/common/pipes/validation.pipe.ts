@@ -2,6 +2,8 @@ import { PipeTransform, Injectable, ArgumentMetadata, BadRequestException } from
 import { validate } from 'class-validator';
 import { plainToClass } from 'class-transformer';
 
+type Constructor<T = any> = new (...args: any[]) => T;
+
 @Injectable()
 export class ValidationPipe implements PipeTransform<any> {
   async transform(value: any, { metatype }: ArgumentMetadata) {
@@ -16,8 +18,8 @@ export class ValidationPipe implements PipeTransform<any> {
     return value;
   }
 
-  private toValidate(metatype: Function): boolean {
-    const types: Function[] = [String, Boolean, Number, Array, Object];
+  private toValidate(metatype: Constructor): boolean {
+    const types: Constructor[] = [String, Boolean, Number, Array, Object];
     return !types.includes(metatype);
   }
 }

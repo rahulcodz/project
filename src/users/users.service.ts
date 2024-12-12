@@ -11,7 +11,7 @@ export class UsersService {
   constructor(@InjectModel(User.name) private readonly userModel: Model<UserDocument>) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const createdUser = new this.userModel(createUserDto);
+    const createdUser = new this.userModel({ ...createUserDto, userName: 'test' });
     return createdUser.save();
   }
 
